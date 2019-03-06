@@ -9,7 +9,7 @@ public class Ticket {
     public Ticket(String event, String sellerName, int ticketsAvailable, double price) {
         setEvent(event);
         setSellerName(sellerName);
-        setAvailable(ticketsAvailable);
+        setTicketsAvailable(ticketsAvailable);
         setPrice(price); 
     }
 

@@ -1,11 +1,10 @@
 import java.util.*;
-import Ticket;
 
 public class TicketHandler {
     private ArrayList<Ticket> ticketList;
 
     public TicketHandler(String filename) {
-        // TODO
+        ticketList = new ArrayList<Ticket>();
     }
 
     Ticket find(String event, String sellerName) {
