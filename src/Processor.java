@@ -109,6 +109,7 @@ public class Processor {
             //userHandler.write("NewUsers.txt");
             transactionsReader.close();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ERROR: Could not read " + filename);
             System.exit(1);
         }
@@ -116,6 +117,7 @@ public class Processor {
 
     public static void main(String[] args) {
         Processor processor = new Processor("users.txt", "tickets.txt");
+        
         processor.processTransactions("transactions.txt");
     }
 }
