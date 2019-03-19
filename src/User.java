@@ -2,19 +2,19 @@ import java.io.*;
 import java.util.*;
 
 public class User {
-  private String userName;
+  private String username;
   private String userType;
   private double credit;
 
-//first constructor
-  public User(String userName, String userType, double credit) {
-      userName = userName;
-      userType = userType;
-      credit = credit;
-    }
+  // first constructor
+  public User(String username, String userType, double credit) {
+    this.username = username;
+    this.userType = userType;
+    this.credit = credit;
+  }
 
-  public String getuserName() {
-    return this.userName;
+  public String getUsername() {
+    return this.username;
   }
 
   public String getType() {
@@ -25,17 +25,17 @@ public class User {
     return this.credit;
   }
 
-  public void setuserName(String userName) {
-      this.userName = userName;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public void setuserType(String userType) {
-      this.userType = userType;
+    this.userType = userType;
   }
 
   public void setCredit(double credit) {
-      this.credit = credit;
+    this.credit = credit;
   }
 
-
 }
+
