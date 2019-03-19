@@ -2,17 +2,18 @@
 .java.class:
 	$(JC) $(JFLAGS) $*.java
 
-JFLAGS = -g -d $(BUILD_DIR)
+JFLAGS = -g -classpath $(SRC_DIR) -d $(BUILD_DIR)
 JC = javac
-JVM =java
+JVM = java
 
+SRC_DIR = src
 BUILD_DIR = dist
 CLASSES = \
-        Ticket.java \
-        TicketHandler.java \
-        User.java \
-        UserHandler.java \
-        Processor.java
+        $(SRC_DIR)/Ticket.java \
+        $(SRC_DIR)/TicketHandler.java \
+        $(SRC_DIR)/User.java \
+        $(SRC_DIR)/UserHandler.java \
+        $(SRC_DIR)/Processor.java
 
 default: classes
 
