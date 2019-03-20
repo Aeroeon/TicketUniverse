@@ -1,5 +1,16 @@
 import java.io.*;
 
+/*
+Storage classes - Ticket, User
+Handler classes - UserHandler, TicketHandler
+
+The UserHandler and TicketHandler classes read in their respective files and parses each line into a Ticket or User
+storage class. These storage classes are put into a list where they can be used later. The handler classes are used
+when the Processor class edits their storage lists based on the transaction file. Once the transaction file is fully
+read and all edits are made the handler classes write out the edited storage lists back into a text format.
+
+ */
+
 // Processes the transactions file and edits the users and tickets files as needed in chronological order
 public class Processor {
     private UserHandler userHandler;
@@ -88,6 +99,7 @@ public class Processor {
        ticketHandler = new TicketHandler(ticketsFilename);
     }
 
+    // Read transactions file and make changes to users and tickets as needed
     public void processTransactions(String filename) {
         try (BufferedReader transactionsReader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -112,6 +124,7 @@ public class Processor {
             //userHandler.write("NewUsers.txt");
             transactionsReader.close();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ERROR: Could not read " + filename);
             System.exit(1);
         }
@@ -119,6 +132,7 @@ public class Processor {
 
     public static void main(String[] args) {
         Processor processor = new Processor("users.txt", "tickets.txt");
+        
         processor.processTransactions("transactions.txt");
     }
 }

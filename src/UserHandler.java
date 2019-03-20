@@ -90,6 +90,7 @@ public class UserHandler {
         userList.add(t);
     }
 
+
     //This function deletes users from the userList
     public void delete(User t) {
       for (int i = 0; i < userList.size(); i++) {
@@ -99,4 +100,6 @@ public class UserHandler {
         }
       }
     }
+
+
 }

@@ -5,7 +5,7 @@ public class User {
   private String userName;
   private String userType;
   private float credit;
- 
+
 //first constructor
   public User(String userName, String userType, float credit) {
       this.userName = userName;
