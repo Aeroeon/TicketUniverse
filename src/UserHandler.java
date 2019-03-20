@@ -3,7 +3,6 @@ import java.io.*;
 
 public class UserHandler {
   private ArrayList<User> userList;
-  private String usersFilename;
   private final int NAMELENGTH = 15;
   private final int TYPELENGTH = 2;
   private final int CREDITLENGTH = 9;
@@ -21,7 +20,6 @@ public class UserHandler {
   }
 
     public UserHandler(String usersFilename) {
-        this.usersFilename = usersFilename;
         userList = new ArrayList<User>();
 
         try {

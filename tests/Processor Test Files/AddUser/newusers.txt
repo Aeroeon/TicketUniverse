@@ -1,0 +1,3 @@
+admin           AA 01000000.00
+user            AA 00000.00
+END                         

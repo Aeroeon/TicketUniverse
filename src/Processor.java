@@ -15,6 +15,7 @@ read and all edits are made the handler classes write out the edited storage lis
 public class Processor {
     private UserHandler userHandler;
     private TicketHandler ticketHandler;
+    private String line;
 
     private String removeTrailingSpaces(String line) {
         for (int i = 0; i < line.length(); i++) {
@@ -39,11 +40,12 @@ public class Processor {
         if (transactionType.equals("01")) {
             User user = new User(username, userType, credit);
             userHandler.add(user);
-            userHandler.write();
         } else if (transactionType.equals("02")) {
-            // delete
+            User user = userHandler.find(username);
+            userHandler.delete(user);
         } else if (transactionType.equals("06")) {
-            // addcredit
+            User user = userHandler.find(username);
+            user.setCredit(user.getCredit() + credit);
         } else if (transactionType.equals("00")) {
             // logout
         } else {
@@ -67,11 +69,13 @@ public class Processor {
                 ticketHandler.add(newTicket);
             } else {
                 System.out.println("ERROR: Ticket already exists");
+                System.out.println("Transaction: " + line);
             }
         } else if (transactionType.equals("04")) {
             Ticket t = ticketHandler.find(eventName, sellerName);
             if (t == null) {
                 System.out.println("ERROR: Ticket does not exist");
+                System.out.println("Transaction: " + line);
                 return;
             }
 
@@ -79,18 +83,39 @@ public class Processor {
                 t.setTicketsAvailable(t.getTicketsAvailable() - tickets);
             } else {
                 System.out.println("ERROR: Not enough tickets available");
+                System.out.println("Transaction: " + line);
             }
 
         } else {
             System.out.println("ERROR: Unrecognized transaction code: " + transactionType);
+            System.out.println("Transaction: " + line);
             System.exit(1);
         }
     }
 
     private void parseRefundTransaction(String line) {
-        String transactionType = line.substring(0, 2);
         String buyerName = removeTrailingSpaces(line.substring(3, 18));
         String sellerName = removeTrailingSpaces(line.substring(19, 34));
+        float price = Float.parseFloat(line.substring(35, 44));
+
+        User buyer = userHandler.find(buyerName);
+        User seller = userHandler.find(sellerName);
+
+        if (seller.getCredit() < price) {
+            price = seller.getCredit();
+            System.out.println("ERROR: Seller cannot afford refund");
+            System.out.println("Transaction: " + line);
+            return;
+        }
+        if (buyer.getCredit() + price > 999999.99f) {
+            price = 999999.99f - buyer.getCredit();
+            System.out.println("ERROR: Buyer cannot accept refund, account full");
+            System.out.println("Transaction: " + line);
+            return;
+        }
+
+        buyer.setCredit(buyer.getCredit() + price);
+        seller.setCredit(seller.getCredit() - price);
     }
 
     //Initialize userHandler and ticketHandler
@@ -100,10 +125,8 @@ public class Processor {
     }
 
     // Read transactions file and make changes to users and tickets as needed
-    public void processTransactions(String filename) {
+    public void processTransactions(String filename, String newUsersFilename, String newTicketsFilename) {
         try (BufferedReader transactionsReader = new BufferedReader(new FileReader(filename))) {
-            String line;
-
             while ((line = transactionsReader.readLine()) != null) {
                 if (line.length() == 55) {
                     parseTicketTransaction(line);
@@ -115,13 +138,14 @@ public class Processor {
                     break;
                 } else {
                     System.out.println("ERROR: Line formatted incorrectly");
+                    System.out.println("Transaction: " + line);
                     System.exit(1);
                 }
             }
 
             transactionsReader.close();
-            ticketHandler.write("NewTickets.txt");
-            userHandler.write("NewUsers.txt");
+            ticketHandler.write(newTicketsFilename);
+            userHandler.write(newUsersFilename);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: Could not read " + filename);
@@ -129,13 +153,21 @@ public class Processor {
         }
     }
 
+    public UserHandler getUserHandler() {
+        return userHandler;
+    }
+
+    public TicketHandler getTicketHandler() {
+        return ticketHandler;
+    }
+
     public static void main(String[] args) {
         if (args.length == 0) {
-            System.out.println("Format to run program is users tickets transactions");
+            System.out.println("Format to run program is users tickets transactions newusers newtickets");
         }
 
         Processor processor = new Processor(args[0], args[1]);
         
-        processor.processTransactions(args[2]);
+        processor.processTransactions(args[2], args[3], args[4]);
     }
 }
