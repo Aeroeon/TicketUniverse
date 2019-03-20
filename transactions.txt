@@ -1,0 +1,5 @@
+04 event1                    seller1         001 100.00
+06 seller1         AA 000001.00
+02 seller1         AA 001000.00
+01 user            AA 999999.06
+00
