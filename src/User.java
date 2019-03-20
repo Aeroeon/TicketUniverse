@@ -4,13 +4,13 @@ import java.util.*;
 public class User {
   private String userName;
   private String userType;
-  private double credit;
-
+  private float credit;
+ 
 //first constructor
-  public User(String userName, String userType, double credit) {
-      userName = userName;
-      userType = userType;
-      credit = credit;
+  public User(String userName, String userType, float credit) {
+      this.userName = userName;
+      this.userType = userType;
+      this.credit = credit;
     }
 
   public String getuserName() {
@@ -21,7 +21,7 @@ public class User {
     return this.userType;
   }
 
-  public double getCredit() {
+  public float getCredit() {
     return this.credit;
   }
 
@@ -33,7 +33,7 @@ public class User {
       this.userType = userType;
   }
 
-  public void setCredit(double credit) {
+  public void setCredit(float credit) {
       this.credit = credit;
   }
 

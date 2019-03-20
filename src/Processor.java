@@ -2,7 +2,7 @@ import java.io.*;
 
 // Processes the transactions file and edits the users and tickets files as needed in chronological order
 public class Processor {
-    //private UserHandler userHandler;
+    private UserHandler userHandler;
     private TicketHandler ticketHandler;
 
     private String removeTrailingSpaces(String line) {
@@ -26,7 +26,9 @@ public class Processor {
         // System.out.println(transactionType + " " + username + " " + userType + " " + credit);
 
         if (transactionType.equals("01")) {
-            // create
+            User user = new User(username, userType, credit);
+            userHandler.add(user);
+            userHandler.write();
         } else if (transactionType.equals("02")) {
             // delete
         } else if (transactionType.equals("06")) {
@@ -82,7 +84,7 @@ public class Processor {
 
     //Initialize userHandler and ticketHandler
     public Processor(String usersFilename, String ticketsFilename) {
-       //userHandler = new UserHandler(usersFilename);
+       userHandler = new UserHandler(usersFilename);
        ticketHandler = new TicketHandler(ticketsFilename);
     }
 
@@ -106,6 +108,7 @@ public class Processor {
             }
 
             ticketHandler.write("NewTickets.txt");
+            userHandler.write();
             //userHandler.write("NewUsers.txt");
             transactionsReader.close();
         } catch (Exception e) {
