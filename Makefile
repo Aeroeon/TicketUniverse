@@ -17,8 +17,11 @@ CLASSES = \
         $(SRC_DIR)/Processor.java
 
 TEST_CLASSES = \
+	$(TEST_DIR)/ProcessorTests.java \
         $(TEST_DIR)/TicketHandlerTests.java \
-        $(TEST_DIR)/TicketTests.java
+        $(TEST_DIR)/TicketTests.java \
+	$(TEST_DIR)/UserHandlerTests.java \
+        $(TEST_DIR)/UserTests.java
 
 default: classes
 
@@ -29,7 +32,12 @@ build_tests:
 
 # Main class. Can be anything, but must contain public static void main(String[] args)
 MAIN = Processor
-TESTMAIN = TicketTests
+TESTMAIN = \
+	ProcessorTests \
+	TicketHandlerTests \
+	TicketTests \
+	UserHandlerTests \
+	UserTests
 
 run: classes
 	$(JVM) -cp $(BUILD_DIR) $(MAIN)
