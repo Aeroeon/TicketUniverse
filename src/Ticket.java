@@ -21,10 +21,11 @@ public class Ticket {
     }
 
     public Ticket(String ticketTransaction) {
-        setEvent(ticketTransaction.split("\t")[0]);
-        setSellerName(ticketTransaction.split("\t")[1]);
-        setTicketsAvailable(Integer.parseInt(ticketTransaction.split("\t")[2]));
-        setPrice(Double.parseDouble(ticketTransaction.split("\t")[3]));
+        String[] parts = ticketTransaction.split("\\s+");
+        setEvent(parts[0]);
+        setSellerName(parts[1]);
+        setTicketsAvailable(Integer.parseInt(parts[2]));
+        setPrice(Double.parseDouble(parts[3]));
     }
 
     public String getEvent() {
