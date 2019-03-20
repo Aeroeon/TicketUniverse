@@ -6,6 +6,13 @@ public class Ticket {
     private int ticketsAvailable;
     private double price;
 
+    public Ticket() {
+        setEvent("");
+        setSellerName("");
+        setTicketsAvailable(0);
+        setPrice(0.0);
+    }
+
     public Ticket(String event, String sellerName, int ticketsAvailable, double price) {
         setEvent(event);
         setSellerName(sellerName);
@@ -14,10 +21,10 @@ public class Ticket {
     }
 
     public Ticket(String ticketTransaction) {
-        this.event = ticketTransaction.split(" ")[0];
-        this.sellerName = ticketTransaction.split(" ")[1];
-        this.ticketsAvailable = Integer.parseInt(ticketTransaction.split(" ")[2]);
-        this.price = Double.parseDouble(ticketTransaction.split(" ")[3]);
+        setEvent(ticketTransaction.split("\t")[0]);
+        setSellerName(ticketTransaction.split("\t")[1]);
+        setTicketsAvailable(Integer.parseInt(ticketTransaction.split("\t")[2]));
+        setPrice(Double.parseDouble(ticketTransaction.split("\t")[3]));
     }
 
     public String getEvent() {

@@ -32,25 +32,27 @@ public class TicketHandler {
                 .findAny().orElse(null);
     }
 
-    void add(Ticket t) {
-        ticketList.add(t);
+    boolean add(Ticket t) {
+        return ticketList.add(t);
     }
 
-    void delete(Ticket t) {
-        ticketList.remove(t);
+    boolean delete(Ticket t) {
+        return ticketList.remove(t);
     }
 
-    void write(String filename) {
+    boolean write(String filename) {
         try (PrintWriter pw = new BufferedWriter(new FileWriter(filename))) {
             for (Ticket t : ticketList) {
                 // EEEEEEEEEEEEEEEEEEEEEEEEE SSSSSSSSSSSSSSS TTT PPPPPP
                 pw.println(t.getEvent() + '\t' + t.getSellerName() + '\t' + t.getTicketsAvailable() + '\t' + t.getPrice());
             }
             pw.flush();
+            return true;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 }
