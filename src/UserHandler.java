@@ -8,6 +8,18 @@ public class UserHandler {
   private final int TYPELENGTH = 2;
   private final int CREDITLENGTH = 9;
 
+  private String removeTrailingSpaces(String line) {
+    for (int i = 0; i < line.length(); i++) {
+        if (line.charAt(i) == ' ') {
+            return line.substring(0, i);
+        }
+    }
+
+    System.out.println("ERROR: Trailing space removal failed");
+    System.exit(1);
+    return "";
+  }
+
     public UserHandler(String usersFilename) {
         this.usersFilename = usersFilename;
         userList = new ArrayList<User>();
@@ -18,12 +30,13 @@ public class UserHandler {
           String contentLine;
           while (((contentLine = br.readLine()) != null) && !contentLine.trim().equals("END")) {
             int offset = NAMELENGTH;
-            String userName = contentLine.substring(0, offset++);
+            String userName = removeTrailingSpaces(contentLine.substring(0, offset++));
             String userType = contentLine.substring(offset, offset + TYPELENGTH);
             offset += TYPELENGTH + 1;
             float credit = Float.parseFloat(contentLine.substring(offset));
-              User user = new User(userName, userType, credit);
-              userList.add(user);
+            User user = new User(userName, userType, credit);
+            
+            userList.add(user);
           } br.close();
         } catch(IOException e) {
               e.printStackTrace();
