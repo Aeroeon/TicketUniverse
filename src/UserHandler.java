@@ -30,14 +30,6 @@ public class UserHandler {
         }
     }
 
-    //For debugging purposes only
-    public static void main(String[] args) {
-      User user = new User("hello", "TT", (float)123.45);
-      UserHandler handler = new UserHandler("test.txt");
-      handler.add(user);
-      handler.write();
-    }
-
     //Padding for User
     private String paddUser(String username) {
       if (username.length() == NAMELENGTH) {
@@ -63,9 +55,9 @@ public class UserHandler {
     }
 
     //Writes to the userlist
-    public void write() {
+    public void write(String filename) {
       try {
-        FileWriter fw = new FileWriter(usersFilename, false); // false = overwrites
+        FileWriter fw = new FileWriter(filename, false); // false = overwrites
         BufferedWriter bw = new BufferedWriter(fw);
           for (User user : userList) {
               //String line = user.getuserName() + " " + user.getType() + " " + user.getCredit() + "\n";
@@ -101,5 +93,9 @@ public class UserHandler {
       }
     }
 
-
+    public User find(String name) {
+      return userList.stream()
+              .filter(user -> name.equals(user.getuserName()))
+              .findAny().orElse(null);
+  }
 }
