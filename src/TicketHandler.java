@@ -1,10 +1,28 @@
+import java.io.*;
 import java.util.*;
 
 public class TicketHandler {
     private ArrayList<Ticket> ticketList;
 
+    public TicketHandler() {
+        ticketList = new ArrayList<Ticket>();
+    }
+
     public TicketHandler(String filename) {
         ticketList = new ArrayList<Ticket>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String ticketTransaction;
+
+            while ((ticketTransaction = br.readLine()) != null)  {
+                ticketList.add(new Ticket(ticketTransaction));
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     Ticket find(String event, String sellerName) {
@@ -23,7 +41,16 @@ public class TicketHandler {
     }
 
     void write(String filename) {
-        // TODO
+        try (PrintWriter pw = new BufferedWriter(new FileWriter(filename))) {
+            for (Ticket t : ticketList) {
+                // EEEEEEEEEEEEEEEEEEEEEEEEE SSSSSSSSSSSSSSS TTT PPPPPP
+                pw.println(t.getEvent() + '\t' + t.getSellerName() + '\t' + t.getTicketsAvailable() + '\t' + t.getPrice());
+            }
+            pw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

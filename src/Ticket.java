@@ -13,6 +13,13 @@ public class Ticket {
         setPrice(price); 
     }
 
+    public Ticket(String ticketTransaction) {
+        this.event = ticketTransaction.split(" ")[0];
+        this.sellerName = ticketTransaction.split(" ")[1];
+        this.ticketsAvailable = Integer.parseInt(ticketTransaction.split(" ")[2]);
+        this.price = Double.parseDouble(ticketTransaction.split(" ")[3]);
+    }
+
     public String getEvent() {
         return this.event;
     }
