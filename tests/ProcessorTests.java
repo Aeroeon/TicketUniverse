@@ -53,6 +53,47 @@ public class ProcessorTests {
     assertEquals(110.0f, buyer.getCredit(), 0.1f);
   }
 
+  @Test
+  // Test selling a ticket
+  public void sellTest() {
+    String folderPath = testFilesPath + "Sell/";
+    Processor processor = createProcessor(folderPath);
+    TicketHandler ticketHandler = processor.getTicketHandler();
+    Ticket ticket = ticketHandler.find("event", "seller");
+    assertNotNull(ticket);
+    assertEquals(50.0f, ticket.getPrice(), 0.1f);
+    assertEquals(100, ticket.getTicketsAvailable());
+
+    // Seller does not exist error triggered
+    assertNull(ticketHandler.find("event1", "seller1"));
+
+    // Ticket already exists error triggered line 3 of transactions
+  }
+
+  @Test
+  // Test buying a ticket
+  public void buyTest() {
+    String folderPath = testFilesPath + "Buy/";
+    Processor processor = createProcessor(folderPath);
+    TicketHandler ticketHandler = processor.getTicketHandler();
+    UserHandler userHandler = processor.getUserHandler();
+
+    User seller = userHandler.find("seller");
+    User buyer = userHandler.find("buyer");
+
+    assertNull(ticketHandler.find("event", "seller"));
+    assertNotNull(ticketHandler.find("event1", "seller"));
+    assertEquals(50.0f, seller.getCredit(), 0.1f);
+    assertEquals(0.0f, buyer.getCredit(), 0.1f);
+  }
+
+  @Test
+  // Test empty files
+  public void emptyTest() {
+    String folderPath = testFilesPath + "Empty/";
+    Processor processor = createProcessor(folderPath);
+  }
+
   public static junit.framework.Test suite() {
     return new JUnit4TestAdapter(ProcessorTests.class);
   }

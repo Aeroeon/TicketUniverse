@@ -1,0 +1,5 @@
+03 event                     seller          100 050.00
+03 event1                    seller1         100 050.00
+03 event                     seller          100 050.00
+00
+XX_EEEEEEEEEEEEEEEEEEEEEEEEE_SSSSSSSSSSSSSSS_TTT_PPPPPP

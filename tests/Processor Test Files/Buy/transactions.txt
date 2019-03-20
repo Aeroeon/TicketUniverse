@@ -1,0 +1,14 @@
+04 event                     seller          001 050.00
+04 event1                    seller          001 050.00
+04 event2                    seller          001 050.00
+04 event1                    seller          003 050.00
+04 event1                    seller          001 050.00
+04 event                     DNE             001 050.00
+00 buyer           BS 000000.00
+04 event1                    seller          001 050.00
+00 buyer1          BS 000000.00
+04 event                     rich            001 050.00
+00 buyer2          SS 999999.99
+00
+XX_EEEEEEEEEEEEEEEEEEEEEEEEE_SSSSSSSSSSSSSSS_TTT_PPPPPP
+XX_UUUUUUUUUUUUUUU_TT_CCCCCCCCC

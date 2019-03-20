@@ -1,0 +1,5 @@
+seller          AA 00050.00
+buyer           AA 00000.00
+rich            SS 01000000.00
+buyer2          BS 100000.00
+END                         

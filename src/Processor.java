@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 
 /*
 Storage classes - Ticket, User
@@ -16,6 +17,7 @@ public class Processor {
     private UserHandler userHandler;
     private TicketHandler ticketHandler;
     private String line;
+    private ArrayList<String> buyTransactions;
 
     private String removeTrailingSpaces(String line) {
         for (int i = 0; i < line.length(); i++) {
@@ -35,8 +37,6 @@ public class Processor {
         String userType = line.substring(19, 21);
         float credit = Float.parseFloat(line.substring(22, 31));
 
-        // System.out.println(transactionType + " " + username + " " + userType + " " + credit);
-
         if (transactionType.equals("01")) {
             User user = new User(username, userType, credit);
             userHandler.add(user);
@@ -47,7 +47,10 @@ public class Processor {
             User user = userHandler.find(username);
             user.setCredit(user.getCredit() + credit);
         } else if (transactionType.equals("00")) {
-            // logout
+            for (String buyTransaction : buyTransactions) {
+                parseBuyTransaction(buyTransaction, username);
+            }
+            buyTransactions.clear();
         } else {
             System.out.println("ERROR: Unrecognized transaction code: " + transactionType);
             System.exit(1);
@@ -61,35 +64,72 @@ public class Processor {
         int tickets = Integer.parseInt(line.substring(45, 48));
         float price = Float.parseFloat(line.substring(49, 55));
 
-       // System.out.println(transactionType + " " + eventName + " " + sellerName + " " + tickets + " " + price);
-
         if (transactionType.equals("03")) {
-            if (ticketHandler.find(eventName, sellerName) == null) {
-                Ticket newTicket = new Ticket(eventName, sellerName, tickets, price);
-                ticketHandler.add(newTicket);
-            } else {
+            if (userHandler.find(sellerName) == null) {
+                System.out.println("ERROR: Seller does not exist");
+                System.out.println("Transaction: " + line);
+                return;
+            } else if (ticketHandler.find(eventName, sellerName) != null) {
                 System.out.println("ERROR: Ticket already exists");
                 System.out.println("Transaction: " + line);
             }
+
+            Ticket newTicket = new Ticket(eventName, sellerName, tickets, price);
+            ticketHandler.add(newTicket);
+                
         } else if (transactionType.equals("04")) {
-            Ticket t = ticketHandler.find(eventName, sellerName);
-            if (t == null) {
-                System.out.println("ERROR: Ticket does not exist");
-                System.out.println("Transaction: " + line);
-                return;
-            }
-
-            if (t.getTicketsAvailable() >= tickets) {
-                t.setTicketsAvailable(t.getTicketsAvailable() - tickets);
-            } else {
-                System.out.println("ERROR: Not enough tickets available");
-                System.out.println("Transaction: " + line);
-            }
-
+            buyTransactions.add(line);
         } else {
             System.out.println("ERROR: Unrecognized transaction code: " + transactionType);
             System.out.println("Transaction: " + line);
             System.exit(1);
+        }
+    }
+
+    private void parseBuyTransaction(String line, String buyerName) {
+        String eventName = removeTrailingSpaces(line.substring(3, 28));
+        String sellerName = removeTrailingSpaces(line.substring(29, 44));
+        int tickets = Integer.parseInt(line.substring(45, 48));
+        float price = Float.parseFloat(line.substring(49, 55));
+
+        Ticket ticket = ticketHandler.find(eventName, sellerName);
+        User seller = userHandler.find(sellerName);
+        User buyer = userHandler.find(buyerName);
+
+        float totalPrice = tickets * price;
+
+        if (ticket == null) {
+            System.out.println("ERROR: Ticket does not exist");
+            System.out.println("Transaction: " + line);
+            return;
+        } else if (seller == null) {
+            System.out.println("ERROR: Seller does not exist");
+            System.out.println("Transaction: " + line);
+            return;
+        } else if (buyer == null) {
+            System.out.println("ERROR: Buyer does not exist");
+            System.out.println("Transaction: " + line);
+            return;
+        } else if (ticket.getTicketsAvailable() < tickets) {
+            System.out.println("ERROR: Not enough tickets available");
+            System.out.println("Transaction: " + line);
+            return;
+        } else if (totalPrice > buyer.getCredit()) {
+            System.out.println("ERROR: Buyer cannot afford this transaction");
+            System.out.println("Transaction: " + line);
+            return;
+        } else if (seller.getCredit() + totalPrice > 999999.99f) {
+            System.out.println("ERROR: Seller has reached account credit limit");
+            System.out.println("Transaction: " + line);
+            return;
+        }
+        
+        ticket.setTicketsAvailable(ticket.getTicketsAvailable() - tickets);
+        buyer.setCredit(buyer.getCredit() - totalPrice);
+        seller.setCredit(seller.getCredit() + totalPrice);
+
+        if (ticket.getTicketsAvailable() <= 0) {
+            ticketHandler.delete(ticket);
         }
     }
 
@@ -122,6 +162,7 @@ public class Processor {
     public Processor(String usersFilename, String ticketsFilename) {
        userHandler = new UserHandler(usersFilename);
        ticketHandler = new TicketHandler(ticketsFilename);
+       buyTransactions = new ArrayList<String>();
     }
 
     // Read transactions file and make changes to users and tickets as needed

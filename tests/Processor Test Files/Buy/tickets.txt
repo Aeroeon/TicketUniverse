@@ -1,0 +1,6 @@
+event                     seller          001 050.00
+event1                    seller          002 050.00
+event                     rich            005 050.00
+event                     DNE             005 050.00
+END
+EEEEEEEEEEEEEEEEEEEEEEEEE_SSSSSSSSSSSSSSS_TTT_PPPPPP
