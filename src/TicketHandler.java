@@ -14,7 +14,7 @@ public class TicketHandler {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String ticketTransaction;
 
-            while ((ticketTransaction = br.readLine()) != null)  {
+            while ((ticketTransaction = br.readLine()) != null && !ticketTransaction.equals("END"))  {
                 ticketList.add(new Ticket(ticketTransaction));
             }
 
