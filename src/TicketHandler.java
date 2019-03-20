@@ -41,7 +41,7 @@ public class TicketHandler {
     }
 
     boolean write(String filename) {
-        try (PrintWriter pw = new BufferedWriter(new FileWriter(filename))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(filename))) {
             for (Ticket t : ticketList) {
                 // EEEEEEEEEEEEEEEEEEEEEEEEE SSSSSSSSSSSSSSS TTT PPPPPP
                 pw.println(t.getEvent() + '\t' + t.getSellerName() + '\t' + t.getTicketsAvailable() + '\t' + t.getPrice());
