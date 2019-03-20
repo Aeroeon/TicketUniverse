@@ -24,17 +24,18 @@ default: classes
 
 classes: $(CLASSES:.java=.class)
 
-build_tests: $(TEST_CLASSES:.java=.class)
+build_tests:
+	$(JC) -d $(BUILD_DIR) -classpath junit.jar -sourcepath $(SRC_DIR) $(TEST_CLASSES)
 
 # Main class. Can be anything, but must contain public static void main(String[] args)
 MAIN = Processor
+TESTMAIN = TicketTests
 
 run: classes
 	$(JVM) -cp $(BUILD_DIR) $(MAIN)
 
-# TODO: Add test target
 test: build_tests
-    $(JVM) -cp .:/junit-4.10.jar org.junit.runner.JUnitCore $(TEST_CLASSES)
+	$(JVM) -cp junit.jar:$(BUILD_DIR) org.junit.runner.JUnitCore $(TESTMAIN)
 
 clean:
 	$(RM) -r $(BUILD_DIR)/*.class

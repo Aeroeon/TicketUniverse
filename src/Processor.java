@@ -119,10 +119,9 @@ public class Processor {
                 }
             }
 
-            ticketHandler.write("NewTickets.txt");
-            userHandler.write();
-            //userHandler.write("NewUsers.txt");
             transactionsReader.close();
+            ticketHandler.write("NewTickets.txt");
+            userHandler.write("NewUsers.txt");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR: Could not read " + filename);
@@ -131,8 +130,12 @@ public class Processor {
     }
 
     public static void main(String[] args) {
-        Processor processor = new Processor("users.txt", "tickets.txt");
+        if (args.length == 0) {
+            System.out.println("Format to run program is users tickets transactions");
+        }
+
+        Processor processor = new Processor(args[0], args[1]);
         
-        processor.processTransactions("transactions.txt");
+        processor.processTransactions(args[2]);
     }
 }

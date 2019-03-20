@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 import junit.framework.JUnit4TestAdapter;
 import org.junit.Test;
 
-public class TicketHandlerTests {
+public class TicketTests {
 
     @Test
     public void noArgsConstructorTest() {
