@@ -108,5 +108,10 @@ public class UserHandler {
       return userList.stream()
               .filter(user -> name.equals(user.getuserName()))
               .findAny().orElse(null);
-  }
+     }
+
+    public ArrayList<User> getList() {
+      return userList;
+    }
+
 }
