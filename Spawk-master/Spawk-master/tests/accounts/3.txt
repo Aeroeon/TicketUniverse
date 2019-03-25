@@ -1,0 +1,3 @@
+Are you sure you want to delete this account (Y/N)? Y
+
+The account "Pierre" has been deleted.

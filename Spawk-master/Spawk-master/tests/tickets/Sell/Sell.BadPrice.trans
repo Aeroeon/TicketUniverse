@@ -1,0 +1,6 @@
+sell
+
+What's the event title: Test
+What is the price of each ticket: 1000
+
+Bad Pricing INPUT: Ticket prices must be > 0, formated as 10.00 and a max price of 999.99
