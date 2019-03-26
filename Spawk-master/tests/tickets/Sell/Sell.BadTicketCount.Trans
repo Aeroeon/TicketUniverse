@@ -1,7 +1,0 @@
-sell
-
-What's the event title: Test
-What is the price of each ticket: 10.00
-How much would you like to sell: 101
-
-Bad Ticket Count: Count must be > 0 and < 100

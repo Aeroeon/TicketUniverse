@@ -1,8 +1,0 @@
-{
-  "files.associations": {
-    "stdexcept": "cpp",
-    "unordered_map": "cpp",
-    "iosfwd": "cpp",
-    "vector": "cpp"
-  }
-}

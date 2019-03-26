@@ -1,0 +1,3 @@
+[submodule "Spawk"]
+	path = Spawk
+	url = https://github.com/kipp0/Spawk.git

@@ -1,9 +1,0 @@
-Welcome to Spawk!
-
-Please Login..
-Username: Pierre
-
-Login Unsuccessful
-Please Try again.
-
-Username: 
