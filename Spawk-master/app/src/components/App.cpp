@@ -398,7 +398,7 @@ class App {
 		        cout << endl;
 		    }else {
 		        cout << "Error, user file does not exist!";
-		        _exit(0);
+		        _Exit(0);
 		    }
 			
 			

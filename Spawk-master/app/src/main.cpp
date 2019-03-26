@@ -9,7 +9,7 @@ int main(int argc, char **argv)
   string cmd;
   unordered_map<string, string> ticketData;
   Ticket ticket;
-  cout << "Welcome To Spawk!\n\n";
+  std::cout << "Welcome To Spawk!\n\n";
 
 
   ticketData["title"] = "Test Title";
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
   ticket = app.getTicket(ticketData);
   
   
-  cout << ticket.getEventTitle() << "\n";
+  std::cout << ticket.getEventTitle() << "\n";
   ticket.setEventTitle("upadate");
   app.updateTickets(ticket);
   app.updateTickets(ticket);
@@ -48,16 +48,16 @@ int main(int argc, char **argv)
   // cout << ticket.getQuantity() << "\n";
   ticketData["qty"] = "1";
   app.buyTickets(ticketData);
-  cout << app.getTicket(ticketData).getQuantity() << "\n\n";
+  std::cout << app.getTicket(ticketData).getQuantity() << "\n\n";
   
   ticketData["qty"] = "3";
   app.sellTickets(ticketData);
-  cout << app.getTicket(ticketData).getQuantity() << "\n\n";
+  std::cout << app.getTicket(ticketData).getQuantity() << "\n\n";
 
   do {
     if (cmd != "exit")
-      cout << "\n\nPlease Login: ";
-    cin >> cmd;
+		std::cout << "\n\nPlease Login: ";
+	std::cin >> cmd;
   } while (cmd != "exit");
 
   return 0;
