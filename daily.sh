@@ -1,16 +1,17 @@
 #!/bin/bash
 
-> DailyTests/MergedTransactions.txt
-mergedTransactions="DailyTests/MergedTransactions.txt"
-i=0
-while [[ ${i} -lt 2 ]];
+program=${1}
+testPath=${2}
+transactions=${3}
+
+>MergedTransactions.txt
+mergedTransactions="MergedTransactions.txt"
+
+for f in ${testPath}/*.input
 do
-	let i=i+1;
-	echo "Starting test Test$i"
-	./TicketWorld < "DailyTests/test${i}.txt" > "DailyTests/output${i}.txt" &
-	echo "Test$i finished"
-	cat transactions.txt >> ${mergedTransactions}
-	echo "Merged transaction files"
+	${program} < ${f} >> "output.txt"
+	cat ${transactions} >> ${mergedTransactions}
 done
 
-echo "00" >> ${mergedTransactions}
+echo "00" >> ${transactions}
+echo "Simulation finished, transactions file has been merged."
