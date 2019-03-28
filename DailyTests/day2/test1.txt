@@ -1,0 +1,8 @@
+login
+seller
+sell
+newevent
+10
+100
+logout
+exit

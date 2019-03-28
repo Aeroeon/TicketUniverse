@@ -1,9 +1,0 @@
-login
-admin
-buy
-event
-1
-seller
-yes
-logout
-exit

@@ -1,0 +1,7 @@
+login
+admin
+addcredit
+seller1
+1000
+logout
+exit

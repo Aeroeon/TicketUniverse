@@ -75,7 +75,7 @@ public class UserHandler {
             String line = paddUser(user.getuserName()) + " " + user.getType() + " " + paddCredit(user.getCredit()) + "\n";
             bw.write(line);
           }
-            bw.write("END                         \n");
+            bw.write("END");
             bw.close();
           } catch (IOException e) {
             e.printStackTrace();

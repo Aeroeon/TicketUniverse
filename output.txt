@@ -1,0 +1,29 @@
+Welcome to TicketWorld!
+Please enter a command
+Please enter a username
+Login successful
+Please enter a command
+Please enter the name of the acount you want to create
+Please enter the type of the account
+Please enter the accounts credits
+Account successfully created!
+Please enter a command
+Logout successful
+Please enter a command
+Thanks for using TicketWorld!
+Welcome to TicketWorld!
+Please enter a command
+Please enter a username
+Login successful
+Please enter a command
+Please enter an event name
+Please enter the number of tickets you wold like to purchase: 
+Please enter the user you would like to buy from:
+A ticket costs: 
+100, with a total cost of $
+100Please type yes to confirm or no to cancel request: 
+Ticket(s) successfully bought
+Please enter a command
+Logout successful
+Please enter a command
+Thanks for using TicketWorld!

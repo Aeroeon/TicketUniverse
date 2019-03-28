@@ -1,7 +1,6 @@
-username2849902 FS 345678.44
-mrssally        BS 687929.00
-mrchrisolu      AA 403509.88
-username2421135 SS 589609.44
-user            AA 999999.06
-user            AA 999999.06
-END                         
+user            AA 999999.00
+seller1         AA 002800.00
+admin           AA 999299.00
+seller          SS 002100.00
+buyer           BS 000800.00
+END

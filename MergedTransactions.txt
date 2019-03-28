@@ -1,0 +1,17 @@
+04 event                     seller          002 100.00
+00 buyer           BS 000900.00
+05 buyer           seller1         000100.00
+00 admin           AA 999299.06
+00
+00
+00
+01 newBuyer        BS 000100.00
+00 admin           AA 999299.06
+04 event                     seller          001 100.00
+00 admin           AA 999299.06
+00
+01 newBuyer        BS 000100.00
+00 admin           AA 999299.06
+04 event                     seller          001 100.00
+00 admin           AA 999299.06
+00
